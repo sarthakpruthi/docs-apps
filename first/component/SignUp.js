@@ -65,16 +65,7 @@ const signup = () =>{
             >
                 <Text style={styles.signuptext}> Sign Up</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.btnlogin}
-                onPress={() => {
-                    navigation.push('Login')
-                }}
-            >
-                <Text style={styles.logintext}> Login</Text>
-            </TouchableOpacity>
             
-
             </ImageBackground>
         );
     }

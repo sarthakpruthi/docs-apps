@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button, ExtraText, ExtraView} from 'react-native';
 
 
 import img from '../assets/doc.jpg'
 import logo from '../assets/logo.png'
-// import SignUp from "./SignUp";
+import SignUp from "./SignUp";
 
 const {width:WIDTH}=Dimensions.get('window')
 
-const login = () =>{
+const login = ({navigation}) =>{
     
         return(
             <ImageBackground source={img} style={styles.backgroundcontainer}>
@@ -47,16 +47,16 @@ const login = () =>{
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.btnsignup}  
-                onPress={() => {
-                    // <SignUp/>
-                }}
+                onPress={() =>  navigation.navigate('Signup')  }
             >
                 <Text style={styles.signuptext}> Sign Up</Text>
             </TouchableOpacity>
 
+
             </ImageBackground>
         );
     }
+
 
 const styles = StyleSheet.create({
     backgroundcontainer:{

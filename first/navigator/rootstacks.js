@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { Colors } from '../components/style.js'
 
-// const {primary,tertiary}=Colors
-
-import Login from '../component/Login'
-import Signup from '../component/SignUp'
-import App from '../App';
+import Login from '../component/Login';
+import Signup from '../component/SignUp';
+import ChatScreen from '../screens/ChatScreen';
+import MessageScreen from '../screens/MessageScreen';
+import HomeScreen from '../screens/HomeScreen';
+import MainTabScreen from '../screens/MainTabScreen';
 
 const Stack=createStackNavigator()
 
@@ -19,7 +19,6 @@ const RootStack=()=>{
                     headerStyled:{
                         backgroundColor:'transparent'
                     },
-                    // headerTintColor:tertiary,
                     headerTransparent:true,
                     headerTitle:'',
                     headerLeftContainerStyle:{
@@ -30,7 +29,18 @@ const RootStack=()=>{
             >
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="App" component={App} />
+                <Stack.Screen name="Messages" component={MessageScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="MainTabScreen" component={MainTabScreen} />
+                <Stack.Screen 
+                name="Chat" 
+                component={ChatScreen}  
+                    options={({route}) =>({
+                        title:route.params.userName
+                     } ) 
+                    }
+                />
+
             </Stack.Navigator>
         </NavigationContainer>
     )

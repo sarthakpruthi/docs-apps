@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
+import  {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button} from 'react-native';
-
+// import {Picker} from '@react-native-picker/picker'
 
 import img from '../assets/doc.jpg'
 import logo from '../assets/logo.png'
-import Login from "./Login";
 
 const {width:WIDTH}=Dimensions.get('window')
 
 const signup = () =>{
     
+        // const[ pickerValue, setPickerValue ] = useState('Doctor');
+
         return(
             <ImageBackground source={img} style={styles.backgroundcontainer}>
                
@@ -48,15 +50,14 @@ const signup = () =>{
                     />
                 </View>
 
-                <View  style={styles.inputcontainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Doctor/Patient'}
-                        secureTextEntry={true}
-                        placeholderTextColor={'black'}
-                        underlineColorAndroid='transparent'
-                    />
-                </View>
+                {/* <Picker 
+                    style={style.inputcontainer} 
+                    selectedValue={pickerValue}
+                    onValueChange={ (itemValue) => setPickerValue(itemValue) }
+                >
+                    <Picker.Item label="Doctor" value="Doctor"/>
+                    <Picker.Item label="Patient" value="Patient"/>
+                </Picker> */}
 
             <TouchableOpacity style={styles.btnsignup}
                 onPress={() => {

@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions,
 
 import img from '../assets/doc.jpg'
 import logo from '../assets/logo.png'
-import SignUp from "./SignUp";
 
 const {width:WIDTH}=Dimensions.get('window')
 
@@ -40,7 +39,7 @@ const login = ({navigation}) =>{
             
             <TouchableOpacity style={styles.btnlogin}
                 onPress={() => {
-                    alert('Logged In');
+                    navigation.navigate('Messages')
                 }}
             >
                 <Text style={styles.logintext}> Login</Text>

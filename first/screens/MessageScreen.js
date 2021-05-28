@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
+import {View, Image, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {
     Container,
     Card,
@@ -19,7 +19,7 @@ const Messages = [
     {
       id: '1',
       userName: 'Sarthak Pruthi',
-      userImg: '../assets/user-1.jpg',
+      userImage: require('../assets/user-1.jpg'),
       messageTime: '4 mins ago',
       messageText:
         'Hey there, completed message and chat screen',
@@ -27,7 +27,7 @@ const Messages = [
     {
       id: '2',
       userName: 'Sarthak pal',
-      userImg: '../assets/user-2.jpg',
+      userImage: require('../assets/user-2.jpg'),
       messageTime: '2 hours ago',
       messageText:
         'Hey there, completed message and chat screen.',
@@ -35,7 +35,7 @@ const Messages = [
     {
       id: '3',
       userName: 'Anubhav Mittal',
-      userImg: '../assets/user-3.jpg',
+      userImage: require('../assets/user-3.jpg'),
       messageTime: '1 hours ago',
       messageText:
         'Hey there, completed message and chat screen.',
@@ -43,7 +43,7 @@ const Messages = [
     {
       id: '4',
       userName: 'Nikunj',
-      userImg: '../assets/user-4.jpg',
+      userImage: require('../assets/user-4.jpg'),
       messageTime: '1 day ago',
       messageText:
         'Hey there, completed message and chat screen.',
@@ -54,11 +54,6 @@ const MessageScreen = ({navigation}) => {
     return(
         
         <Container>
-            <View>
-                <HeadingText>
-                    Messages
-                </HeadingText>
-            </View>
 
             <FlatList
                 data  = { Messages }
@@ -66,10 +61,10 @@ const MessageScreen = ({navigation}) => {
                 renderItem = { ({item}) => (
                     <Card onPress = {() => navigation.navigate('Chat', {userName:item.userName}) }>
                         <UserInfo>
+                            
                             <UserImgWrapper>
-                                <UserImg source={item.UserImg}/>
+                                <UserImg source= { item.userImage } />
                             </UserImgWrapper>
-
 
                         <TextSection>
                             <UserInfoText>

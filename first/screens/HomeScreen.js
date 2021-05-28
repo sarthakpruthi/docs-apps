@@ -15,8 +15,8 @@ import {
 const HomeScreen = ({navigation}) => {
   
   return (
-            <View>
-                <Text>Home-Screen</Text>
+            <View style={  {flex:1, justifyContent:'center', alignItems:'center' } }>
+                <Text> Home-Screen</Text>
             </View>  
       )
 }

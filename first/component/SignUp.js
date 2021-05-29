@@ -8,9 +8,24 @@ import logo from '../assets/logo.png'
 
 const {width:WIDTH}=Dimensions.get('window')
 
-const signup = () =>{
+const signup = ({navigation}) =>{
     
         // const[ pickerValue, setPickerValue ] = useState('Doctor');
+
+        let names = '', emails = '', passwords = ' ', types = '';
+
+        const saveUserName = username => {
+            names = username;
+        };
+        const saveUserEmail = useremail => {
+            emails = useremail;
+        };
+        const saveUserPassword = userpassword => {
+            passwords = userpassword;
+        };
+        const saveUserType = usertype => {
+            types = usertype;
+        };
 
         return(
             <ImageBackground source={img} style={styles.backgroundcontainer}>
@@ -19,7 +34,6 @@ const signup = () =>{
                     <Image source={logo} style={styles.logo}/>
                     <Text style={styles.logotext}>Docs-App</Text>
                 </View>
-                {/* const email,password; */}
 
                 <View  style={styles.inputcontainer}>
                     <TextInput
@@ -27,6 +41,7 @@ const signup = () =>{
                         placeholder={'Name'}
                         placeholderTextColor={'black'}
                         underlineColorAndroid='transparent'
+                        onChangeText={username => saveUserName(username)}
                     />
                 </View>
 
@@ -34,9 +49,9 @@ const signup = () =>{
                     <TextInput
                         style={styles.input}
                         placeholder={'Email'}
-                        secureTextEntry={true}
                         placeholderTextColor={'black'}
                         underlineColorAndroid='transparent'
+                        onChangeText={useremail => saveUserEmail(useremail)}
                     />
                 </View>
             
@@ -47,26 +62,56 @@ const signup = () =>{
                         secureTextEntry={true}
                         placeholderTextColor={'black'}
                         underlineColorAndroid='transparent'
+                        onChangeText={userpassword => saveUserPassword(userpassword)}
                     />
                 </View>
 
-                {/* <Picker 
-                    style={style.inputcontainer} 
-                    selectedValue={pickerValue}
-                    onValueChange={ (itemValue) => setPickerValue(itemValue) }
-                >
-                    <Picker.Item label="Doctor" value="Doctor"/>
-                    <Picker.Item label="Patient" value="Patient"/>
-                </Picker> */}
+                <View  style={styles.inputcontainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={'Doctor/Patient'}
+                        placeholderTextColor={'black'}
+                        underlineColorAndroid='transparent'
+                        onChangeText={usertype => saveUserType(usertype)}
+                    />
+                </View>
 
             <TouchableOpacity style={styles.btnsignup}
                 onPress={() => {
+
+                    fetch('https://us-central1-docs-app-9e00a.cloudfunctions.net/user', {
+                    method: 'POST',
+                    headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                    
+                        name: names,
+                        email: emails,
+                        password: passwords,
+                        type: types
+                        
+                    })
+                    })
+                    
+                    .then(response =>{ 
+                        let json=response.json();
+                        if(json.error) {
+                            console.log(json);
+                            alert('Enter data again');
+                            return;
+                        }
+                    
+                    })
                     alert('Signed Up Login Now');
+                    navigation.navigate('Login')
+
                     }}
             >
                 <Text style={styles.signuptext}> Sign Up</Text>
             </TouchableOpacity>
-            
+
             </ImageBackground>
         );
     }

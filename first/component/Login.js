@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button, ExtraText, ExtraView} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button, ExtraText, ExtraView, ToastAndroid} from 'react-native';
 
 
 import img from '../assets/doc.jpg'
@@ -9,6 +9,15 @@ const {width:WIDTH}=Dimensions.get('window')
 
 const login = ({navigation}) =>{
     
+
+        let emails = '', passwords = '';
+        const saveUserEmail = useremail => {
+            emails = useremail;
+        };
+        const saveUserPassword = userpassword => {
+            passwords = userpassword;
+        };
+
         return(
             <ImageBackground source={img} style={styles.backgroundcontainer}>
                
@@ -23,6 +32,7 @@ const login = ({navigation}) =>{
                         placeholder={'Email'}
                         placeholderTextColor={'black'}
                         underlineColorAndroid='transparent'
+                        onChangeText={useremail => saveUserEmail(useremail)}
                     />
                 </View>
 
@@ -33,13 +43,41 @@ const login = ({navigation}) =>{
                         secureTextEntry={true}
                         placeholderTextColor={'black'}
                         underlineColorAndroid='transparent'
+                        onChangeText={userpassword => saveUserPassword(userpassword)}
                     />
                 </View>
             
             
             <TouchableOpacity style={styles.btnlogin}
+
+                
                 onPress={() => {
-                    navigation.navigate('BottomTabs')
+                    
+                    fetch('https://us-central1-docs-app-9e00a.cloudfunctions.net/userlogin', {
+                    method: 'POST',
+                    headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: emails,
+                        password: passwords
+                    })
+                    })
+
+                    .then(response =>{ 
+
+                        console.log(response.status);
+                       if(response.status=="400"){
+                           alert("Invalid UserName/Password");
+                           return;
+                       }
+                       if(response.status=="200"){
+                        navigation.navigate('BottomTabs') 
+                       }
+                    })
+
+                    
                 }}
             >
                 <Text style={styles.logintext}> Login</Text>

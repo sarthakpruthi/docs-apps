@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import  {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button} from 'react-native';
 // import {Picker} from '@react-native-picker/picker'
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
 
 
 import img from '../assets/doc.jpg'
@@ -13,7 +15,7 @@ const signup = ({navigation}) =>{
     
         // const[ pickerValue, setPickerValue ] = useState('Doctor');
 
-        let names = '', emails = '', passwords = ' ', types = '';
+        let names = '', emails = '', passwords = ' ', types = 'doctor';
 
         const saveUserName = username => {
             names = username;
@@ -26,7 +28,14 @@ const signup = ({navigation}) =>{
         };
         const saveUserType = usertype => {
             types = usertype;
+            console.log(types);
         };
+
+
+        var radio_props = [
+            {label: 'Doctor', value: "doctor" },
+            {label: 'Patient', value: "patient" }
+          ];
 
         return(
             <ImageBackground source={img} style={styles.backgroundcontainer}>
@@ -66,16 +75,16 @@ const signup = ({navigation}) =>{
                         onChangeText={userpassword => saveUserPassword(userpassword)}
                     />
                 </View>
+                
 
-                <View  style={styles.inputcontainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Doctor/Patient'}
-                        placeholderTextColor={'black'}
-                        underlineColorAndroid='transparent'
-                        onChangeText={usertype => saveUserType(usertype)}
+                <View>
+                    <RadioForm style={styles.inputcontainer}
+                    radio_props={radio_props}
+                    initial={0}
+                    onPress={usertype => saveUserType(usertype)}
                     />
                 </View>
+               
 
             <TouchableOpacity style={styles.btnsignup}
                 onPress={() => {

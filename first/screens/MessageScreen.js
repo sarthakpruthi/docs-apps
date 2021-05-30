@@ -47,7 +47,6 @@ const Messages = [
       messageTime: '1 day ago',
       messageText:
         'Hey there, completed message and chat screen.',
-     messagetype
     },
   ];
   

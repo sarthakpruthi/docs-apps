@@ -3,6 +3,7 @@ import  {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button} from 'react-native';
 // import {Picker} from '@react-native-picker/picker'
 
+
 import img from '../assets/doc.jpg'
 import logo from '../assets/logo.png'
 

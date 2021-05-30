@@ -54,7 +54,9 @@ const RootStack=()=>{
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Messages" component={MessageScreen}  options={ {title:'Messages'} }/>
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Chat" component={ChatScreen}  options={ {title:"Chat"} }/>
+                <Stack.Screen name="Chat" component={ChatScreen}  
+                options={ {title:"Chat"} }
+                />
 
                 <Stack.Screen name="BottomTabs" component={BottomTabs} />
 

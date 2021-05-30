@@ -3,20 +3,22 @@ import {View, ScrollView, Text, Button, StyleSheet} from 'react-native';
 import {Bubble, GiftedChat } from 'react-native-gifted-chat'
 
 
-const ChatScreen = () => {
+const ChatScreen = ( {route , navigation} ) => {
 
-        const [messages, setMessages] = useState([]);
-      
+        const [messages, setMessages] = useState([]);  
+        
+        const data = route.params;
+
         useEffect(() => {
           setMessages([
             {
               _id: 1,
-              text: 'Hello developer',
+              text: "Hello " + data.userName,
               createdAt: new Date(),
               user: {
                 _id: 2,
                 name: 'React Native',
-                avatar: 'https://placeimg.com/140/140/any',
+                avatar: data.userImage,
               },
             },
           ])

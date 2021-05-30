@@ -1,14 +1,39 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { StyleSheet, Text, View, ImageBackground , Image, TextInput, Dimensions, TouchableOpacity, Button, ExtraText, ExtraView, ToastAndroid} from 'react-native';
-
+import axios from 'axios';
 
 import img from '../assets/doc.jpg'
 import logo from '../assets/logo.png'
 
 const {width:WIDTH}=Dimensions.get('window')
 
+
 const login = ({navigation}) =>{
-    
+
+            const options = async() => { 
+
+                var option = {
+                    method: 'POST',
+                    url: 'https://us-central1-docs-app-9e00a.cloudfunctions.net/userlogin',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: {email:`${emails}`,password:`${passwords}`}
+                }
+                
+                const response=await axios.request(option)
+        
+                console.log(response.status);
+
+                if(response.status=="200") {
+                    navigation.navigate('BottomTabs');
+                }
+                else{
+                    alert("Enter Valid Details");
+                } 
+            }
+
+
 
         let emails = '', passwords = '';
         const saveUserEmail = useremail => {
@@ -48,51 +73,25 @@ const login = ({navigation}) =>{
                 </View>
             
             
-            <TouchableOpacity style={styles.btnlogin}
-
-                
-                onPress={() => {
-                    
-                    fetch('https://us-central1-docs-app-9e00a.cloudfunctions.net/userlogin', {
-                    method: 'POST',
-                    headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: emails,
-                        password: passwords
-                    })
-                    })
-
-                    .then(response =>{ 
-
-                        console.log(response.status);
-                       if(response.status=="400"){
-                           alert("Invalid UserName/Password");
-                           return;
-                       }
-                       if(response.status=="200"){
-                        navigation.navigate('BottomTabs') 
-                       }
-                    })
+                <TouchableOpacity style={styles.btnlogin}
 
                     
-                }}
-            >
-                <Text style={styles.logintext}> Login</Text>
-            </TouchableOpacity>
+                    onPress={options}
+                >
+                    <Text style={styles.logintext}> Login</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnsignup}  
-                onPress={() =>  navigation.navigate('Signup')  }
-            >
-                <Text style={styles.signuptext}> Sign Up</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.btnsignup}  
+                    onPress={() =>  navigation.navigate('Signup')  }
+                >
+                    <Text style={styles.signuptext}> Sign Up</Text>
+                </TouchableOpacity>
 
 
             </ImageBackground>
         );
     }
+    
 
 
 const styles = StyleSheet.create({

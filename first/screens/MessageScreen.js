@@ -42,11 +42,12 @@ const Messages = [
     },
     {
       id: '4',
-      userName: 'Nikunj',
+      userName: 'Nikhil',
       userImage: require('../assets/user-4.jpg'),
       messageTime: '1 day ago',
       messageText:
         'Hey there, completed message and chat screen.',
+     messagetype
     },
   ];
   
@@ -59,9 +60,8 @@ const MessageScreen = ({navigation}) => {
                 data  = { Messages }
                 keyExtractor = { item=>item.id }
                 renderItem = { ({item}) => (
-                    <Card onPress = {() => navigation.navigate('Chat', {userName:item.userName}) }>
+                    <Card onPress = {() => navigation.navigate('Chat', {...item})}>
                         <UserInfo>
-                            
                             <UserImgWrapper>
                                 <UserImg source= { item.userImage } />
                             </UserImgWrapper>

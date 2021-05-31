@@ -28,7 +28,6 @@ const signup = ({navigation}) =>{
         };
         const saveUserType = usertype => {
             types = usertype;
-            console.log(types);
         };
 
 

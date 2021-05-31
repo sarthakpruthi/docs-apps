@@ -21,19 +21,25 @@ const login = ({navigation}) =>{
                     data: {email:`${emails}`,password:`${passwords}`}
                 }
                 
-                const response=await axios.request(option)
-        
-                console.log(response.status);
+                const response = await axios.request(option)
+                
+                if(response.data.resp == "400") {
+                    alert("Enter Valid Details");
+                    return;
+                }
+                const typeofuser = response.data.type;
 
-                if(response.status=="200") {
-                    navigation.navigate('BottomTabs');
+                if(typeofuser == "doctor"){
+
+                    navigation.navigate('MessageScreen',{...response.data});
                 }
                 else{
-                    alert("Enter Valid Details");
-                } 
+                    navigation.navigate('HomeScreen',{...response.data});
+                }
+
             }
 
-
+     
 
         let emails = '', passwords = '';
         const saveUserEmail = useremail => {

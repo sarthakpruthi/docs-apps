@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import {View, Image, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {
     Container,
@@ -13,64 +13,59 @@ import {
     TextSection,
     HeadingText,
 } from '../styles/MessageStyles';
+import axios from 'axios';
 
-
-const Messages = [
-    {
-      id: '1',
-      userName: 'Sarthak Pruthi',
-      userImage: require('../assets/user-1.jpg'),
-      messageTime: '4 mins ago',
-      messageText:
-        'Hey there, completed message and chat screen',
-    },
-    {
-      id: '2',
-      userName: 'Sarthak pal',
-      userImage: require('../assets/user-2.jpg'),
-      messageTime: '2 hours ago',
-      messageText:
-        'Hey there, completed message and chat screen.',
-    },
-    {
-      id: '3',
-      userName: 'Anubhav Mittal',
-      userImage: require('../assets/user-3.jpg'),
-      messageTime: '1 hours ago',
-      messageText:
-        'Hey there, completed message and chat screen.',
-    },
-    {
-      id: '4',
-      userName: 'Nikhil',
-      userImage: require('../assets/user-4.jpg'),
-      messageTime: '1 day ago',
-      messageText:
-        'Hey there, completed message and chat screen.',
-    },
-  ];
   
-const MessageScreen = ({navigation}) => {
+const MessageScreen = ({route,navigation}) => {
+    const data=route.params;
+    const [messages, setmessages] = useState([]);  
+    // const [chatid, setchatid] = useState([]);  
+
+    const options = async() => { 
+
+        var option = {
+                method: 'POST',
+                url: 'https://us-central1-docs-app-9e00a.cloudfunctions.net/getpatientschats',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: {uid:`${data.uid}`}
+            }
+            
+            const response = await axios.request(option)
+    
+            // const chatid=response.data.chatId;
+            // console.log(chatid);
+            console.log(response);
+            // navigation.navigate('ChatScreen',)
+            // const temp=[];
+            // for(let i=0;i<response.data.length;i++){
+            //     temp.push(response.data[i].chatId);
+            // }
+            // setchatid(temp)
+            setmessages(response.data);
+            // console.log(response.data);
+        }
+        useEffect(() => {
+            const subs = navigation.addListener('focus', options)
+          }, [])
+
     return(
         
         <Container>
-
             <FlatList
-                data  = { Messages }
-                keyExtractor = { item=>item.id }
+                data  = { messages }
+                keyExtractor = { item=>item.chatId }
                 renderItem = { ({item}) => (
-                    <Card onPress = {() => navigation.navigate('Chat', {...item})}>
+                    <Card onPress = {()=>{navigation.navigate('ChatScreen',{chatId:item.chatId , userid:data.uid, name:data.name})}}
+                    >
                         <UserInfo>
-                            <UserImgWrapper>
-                                <UserImg source= { item.userImage } />
-                            </UserImgWrapper>
-
                         <TextSection>
                             <UserInfoText>
-                                <UserName>{item.userName}</UserName>
-                                <PostTime>{item.messageTime}</PostTime>
+                                <UserName>{item.senderName}</UserName> 
+                                <PostTime>{item.timestamp.split(" ")[4]}</PostTime>
                             </UserInfoText>
-                            <MessageText>{item.messageText}</MessageText>
+                            <MessageText>{item.content}</MessageText>
                         </TextSection>
 
                         </UserInfo>

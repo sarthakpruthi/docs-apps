@@ -16,30 +16,30 @@ const MaterialBottomTabs = createMaterialBottomTabNavigator();
 
 const RootStack=()=>{
 
-    BottomTabs = () => {
-        return <MaterialBottomTabs.Navigator>
-          <MaterialBottomTabs.Screen
-            name="Tab1"
-            component={HomeScreen}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={'white'} size={20} />
-              ),
-            }}
-          />
-          <MaterialBottomTabs.Screen 
-            name="Tab2" 
-            component={MessageScreen}
-            options={{
-              tabBarLabel: 'Messages',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="message" color={'white'} size={20} />
-              ),
-            }}
-          />
-        </MaterialBottomTabs.Navigator>
-      }
+    // BottomTabs = () => {
+    //     return <MaterialBottomTabs.Navigator>
+    //       <MaterialBottomTabs.Screen
+    //         name="Tab1"
+    //         component={HomeScreen}
+    //         options={{
+    //           tabBarLabel: 'Home',
+    //           tabBarIcon: ({ color }) => (
+    //             <MaterialCommunityIcons name="home" color={'white'} size={20} />
+    //           ),
+    //         }}
+    //       />
+    //       <MaterialBottomTabs.Screen 
+    //         name="Tab2" 
+    //         component={MessageScreen}
+    //         options={{
+    //           tabBarLabel: 'Messages',
+    //           tabBarIcon: ({ color }) => (
+    //             <MaterialCommunityIcons name="message" color={'white'} size={20} />
+    //           ),
+    //         }}
+    //       />
+    //     </MaterialBottomTabs.Navigator>
+    //   }
 
     return (
         <NavigationContainer>
@@ -52,13 +52,13 @@ const RootStack=()=>{
             >
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="Messages" component={MessageScreen}  options={ {title:'Messages'} }/>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Chat" component={ChatScreen}  
+                <Stack.Screen name="MessageScreen" component={MessageScreen}  options={ {title:'Messages'} }/>
+                <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                <Stack.Screen name="ChatScreen" component={ChatScreen}  
                 options={ {title:"Chat"} }
                 />
 
-                <Stack.Screen name="BottomTabs" component={BottomTabs} />
+                {/* <Stack.Screen name="BottomTabs" component={BottomTabs} /> */}
 
 
             </Stack.Navigator>

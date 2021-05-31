@@ -12,41 +12,50 @@ import {
 } from 'react-native';
 
 import { Button } from 'react-native-paper';
+import axios from 'axios';
 
 const {width:WIDTH}=Dimensions.get('window')
 
-const Messages = [
-  {
-    id: '1',
-    userName: 'Sarthak Pruthi',
-    userImage: require('../assets/user-1.jpg'),
-    messageTime: '4 mins ago',
-    messageText:
-      'Hey there, completed message and chat screen',
-  }
-];
+
 
 const HomeScreen = ({route, navigation}) => {
   
   const data=route.params;
+  // console.log(data);
+
+  const options = async() => { 
+
+    var option = {
+            method: 'POST',
+            url: 'https://us-central1-docs-app-9e00a.cloudfunctions.net/searchdoctor',
+            headers: {
+                'content-type': 'application/json'
+            },
+            data: {uid:`${data.uid}`}
+        }
+        
+        const response = await axios.request(option)
+
+        const chatid=response.data.chatId;
+        // console.log(chatid);
+        navigation.navigate('ChatScreen',{chatId:response.data.chatId , userid:data.uid, name:data.name })
+    }
+
+
 
   return (
       <View style={  {flex:1, justifyContent:'center', alignItems:'center' } }>
 
         <SafeAreaView style={styles.btnmatch}>
-          <FlatList
-                data  = { Messages }
-                keyExtractor = { item=>item.id }
-                renderItem = { ({item}) => (
+          
                     <TouchableOpacity 
                       
-                      onPress = {() => navigation.navigate('Chat', {...item})}>
+                      onPress = {options}>
 
                         <Text style={styles.matchtext}> Chat with doctor </Text>
 
                     </TouchableOpacity>
-                )}
-            />
+
           </SafeAreaView>
 
                 <Button color='white' style={styles.logoutbtn}

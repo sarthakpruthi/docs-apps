@@ -50,8 +50,7 @@ const MessageScreen = ({route,navigation}) => {
             const subs = navigation.addListener('focus', options)
           }, [])
 
-    return(
-        
+    return( 
         <Container>
             <FlatList
                 data  = { messages }
